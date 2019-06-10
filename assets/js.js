@@ -9,12 +9,11 @@ function queryAPI() {
     method: "GET"
   }).then(function(response) {
     console.log(response);
-    console.log(response.data[0].images.downsized.url);
-    
-
+    console.log(response.data[0].images.downsized.url);    
     $.each(response.data, function (index, value) {
-      $('#images').append('<img src="' + value.images.downsized.url + '" />'); 
 
+      
+      $('#images').append('<img src="' + value.images.downsized.url + '" />'); 
     });
 
   });
