@@ -84,7 +84,7 @@ Attempt to complete homework assignment as described in instructions. If unable 
 
 5. Allow users to add their favorite gifs to a `favorites` section.
    * This should persist even when they select or add a new topic.
-   * If you are looking for a major challenge, look into making this section persist even when the page is reloaded(via localStorage or cookies).
+   * If you are looking for a major challenge, look into making this section persist even when the page is reloaded (via localStorage or cookies).
 
 ### Reminder: Submission on BCS
 

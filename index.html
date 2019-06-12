@@ -15,40 +15,26 @@
 </head>
 
 <body>
+    <h1>Fresh Water Aquatic Animals and Plants</h1>
     <div class="container">
         <div class="row">
+          <!--'add buttons-->
           <div class="col-md-9">
               <div id="buttons">
+                  <button class="topic btn btn-primary btn-lg" name="dog">dog</button>
+                  <button class="topic btn btn-primary btn-lg" name="cat">cat</button>
                   <button class="btn btn-primary btn-lg">dog</button>
                   <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>
-                  <button class="btn btn-primary btn-lg">dog</button>
-                  <button class="btn btn-primary btn-lg">cat</button>            
               </div>
             </div>
           <!--'add new' controls-->
           <div class="col-md-3">
               <div id="addnew">
-                  <h1> Add an __?__</h1>
-                  
-                  <button class="btn btn-primary btn-lg">Submit</button>
-            
-                </div>
+                  <form id="new-item-form">
+                      <label for="item-input">Add Item</label>
+                      <input type="text" id="item-input"><br>                
+                      <input id="add-item" type="submit" value="Add Item">
+                    </form>                
               </div>
         </div>
       </div>
@@ -61,5 +47,6 @@
     </div>
 </body>
 <script src="assets/js.js"></script>
+<link rel="stylesheet" href="assets/style.css" />
 
 </html>
