@@ -1,0 +1,52 @@
+/* html, body {
+	height: 50%;
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+      background-color: hsla(87, 27%, 42%, 0.061);
+}
+
+body {
+	width: 100%;
+	text-align: center;
+	padding: 0 20px;
+	overflow: hidden;
+} */
+
+#bubbles {
+  width: 10%;
+  left: 90%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#bubbles div {
+  border: solid 2px #365e99;
+  border-radius: 100%;
+  position: absolute;
+  visibility: hidden;
+  -webkit-animation: fade 10s infinite;
+}
+
+@-webkit-keyframes fade {
+  from {
+    bottom: -24px;
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    bottom: 120%;
+  }
+}
+
+@keyframes fade {
+  from {
+    bottom: -24px;
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    bottom: 120%;
+  }
+}

@@ -1,22 +1,22 @@
-var topics = ["minnow", "salamander", "snail", "gar"];
+var topics = ["minnow", "salamander", "snail", "gar", "bass", "crawdad"];
 
 
-function doSearch() {
-  var topic = $(this).attr("data-name");
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=5vU2gmvTW6FNUZrGnz6GPTGw43uPSDx1&limit=12";
+init();
+function init() {
+  var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=5vU2gmvTW6FNUZrGnz6GPTGw43uPSDx1&limit=12";
   queryAPI(queryURL);
+  renderButtons();
 }
 
-function renderButtons() {
-  $("#buttons").empty();
-  // Looping through the array of topics
-  for (var i = 0; i < topics.length; i++) {
-    var button = $("<button>");
-    button.addClass("topic");
-    button.attr("data-name", topics[i]);
-    button.text(topics[i]);
-    $("#buttons").append(button);
-  }
+$(document).on("click", ".topic", queryFromButton);
+function queryFromButton() {
+  var topic = $(this).attr("data-name");
+  queryTopic(topic);
+}
+
+function queryTopic(topic) {
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=5vU2gmvTW6FNUZrGnz6GPTGw43uPSDx1&limit=12";
+  queryAPI(queryURL);
 }
 
 function queryAPI(queryURL) {
@@ -26,54 +26,63 @@ function queryAPI(queryURL) {
   }).then(function(response) {
     console.log(response);
     $("#images").empty();
-    //console.log(response.data[0].images.downsized.url);    
     $.each(response.data, function (index, value) {
-      var rating = value.rating;
-      // still_url image starts with a number and needs to use [] type assignment
-      var url_still = value.images["480w_still"].url;
-      var url_moving = value.images.downsized.url;
-      var imgpanel = $("<div>");
-      imgpanel.addClass('imgPanel');
-      imgpanel.attr("rating", rating);
-      imgpanel.attr("url_moving", url_moving);
-      imgpanel.attr("url_still", url_still);
-      imgpanel.attr("animated", 0);
-      show_url_still(imgpanel);
-      $("#images").append(imgpanel);
+      generateGUIforResponse(value);
     });
   });
 }
 
-function show_url_still(imgpanel) {
-  imgpanel.empty();
-  imgpanel.addClass('imgPanel');
-  imgpanel.attr("animated", 0);
-  imgpanel.append("<div>Rating: "+imgpanel.attr("rating")+"</div>");
-  imgpanel.append('<img src="'+imgpanel.attr("url_still")+'">');
-  //imgpanel.append('<img src="'+imgpanel.attr("url_still")+'"  style="height=350px; width=350px;"/>');
+function generateGUIforResponse(value) {
+  var rating = value.rating;
+  // still_url image starts with a number and needs to use [] type assignment
+  // var url_still = value.images["480w_still"].url;
+  // var url_moving = value.images.downsized.url;
+  
+  var url_still = value.images.fixed_width_still.url;
+  var url_moving = value.images.fixed_width.url;
 
+
+  var imgpanel = $("<div>");
+  imgpanel.addClass('imgPanel');
+  // imgpanel.attr('style',  'width:220px');
+  // imgpanel.attr('style',  'background-color:gray');
+    //imgpanel.append('<img src="'+imgpanel.attr("url_still")+'"  style="height=350px; width=350px;"/>');
+
+  imgpanel.attr("rating", rating);
+  imgpanel.attr("url_moving", url_moving);
+  imgpanel.attr("url_still", url_still);
+  // imgpanel.attr("animated", 0);
+  show_url(imgpanel, true);
+  $("#images").append(imgpanel);
 }
 
 
-function show_url_moving(imgpanel) {
+function show_url(imgpanel, animated) {
   imgpanel.empty();
-  imgpanel.addClass('imgPanel');
-  imgpanel.attr("animated", 1);
   imgpanel.append("<div>Rating: "+imgpanel.attr("rating")+"</div>");
+  if (animated) {
+    show_url_still(imgpanel);
+  } else {
+    show_url_moving(imgpanel);
+  }
+}
+
+
+function show_url_still(imgpanel) {
+  imgpanel.attr("animated", 0);
+  imgpanel.append('<img src="'+imgpanel.attr("url_still")+'">');
+}
+
+function show_url_moving(imgpanel) {
+  imgpanel.attr("animated", 1);
   imgpanel.append('<img src="'+imgpanel.attr("url_moving")+'">');
 }
 
+$(document).on("click", ".imgPanel", doMovie);
 function doMovie()  {
-  //var imgpanel = $(this);
   var isAnimated = $(this).attr("animated");
-  if (isAnimated === '1') {
-     show_url_still($(this));
-  } else {
-    show_url_moving($(this));
-  }
-
-
-//    show_url_moving($(this));
+  var animated = (isAnimated === "1");
+  show_url($(this), animated);
 }
 
 // new item button click
@@ -83,7 +92,7 @@ $("#add-item").on("click", function(event) {
   if (newTopic !== "") {
     if (topics.indexOf(newTopic) === -1) {
       topics.push(newTopic);
-      renderButtons ();  
+      renderButtons(newTopic);  
     } else {
       console.log("repeated entries of the same value: '" + newTopic + "' - ignored");
     }
@@ -92,13 +101,18 @@ $("#add-item").on("click", function(event) {
   }
 });
 
-function init() {
-  var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=5vU2gmvTW6FNUZrGnz6GPTGw43uPSDx1&limit=12";
-  queryAPI(queryURL);
-  renderButtons();
+function renderButtons(newTopic) {
+  $("#buttons").empty();
+  // Looping through the array of topics
+  for (var i = 0; i < topics.length; i++) {
+    var button = $("<button>");
+    button.addClass("topic");
+    button.attr("data-name", topics[i]);
+    button.text(topics[i]);
+    $("#buttons").append(button);
+  }
+  if (newTopic) {
+    queryTopic(newTopic);
+  }
 }
-$(document).on("click", ".topic", doSearch);
-$(document).on("click", ".imgPanel", doMovie);
-
-init();
 
