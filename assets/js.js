@@ -6,6 +6,8 @@ function init() {
   var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=5vU2gmvTW6FNUZrGnz6GPTGw43uPSDx1&limit=12";
   queryAPI(queryURL);
   renderButtons();
+  $("#ohWell").hide();
+  showOhWell();
 }
 
 $(document).on("click", ".topic", queryFromButton);
@@ -115,4 +117,13 @@ function renderButtons(newTopic) {
     queryTopic(newTopic);
   }
 }
+
+function showOhWell() {
+  setTimeout(showOwell, 4500);
+
+  function showOwell() {
+      $("#ohWell").fadeIn(500);
+  }
+}  
+
 

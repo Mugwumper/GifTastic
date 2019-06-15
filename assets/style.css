@@ -16,7 +16,6 @@ body {
     min-width: 240px;
 }
 
-
 #images {
     display: flex;
     flex-wrap: wrap;
