@@ -1,6 +1,5 @@
 var topics = ["minnow", "salamander", "snail", "gar", "bass", "crawdad"];
 
-
 init();
 function init() {
   var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=5vU2gmvTW6FNUZrGnz6GPTGw43uPSDx1&limit=12";
@@ -10,6 +9,7 @@ function init() {
   showOhWell();
 }
 
+// topics buttons on click
 $(document).on("click", ".topic", queryFromButton);
 function queryFromButton() {
   var topic = $(this).attr("data-name");
@@ -36,28 +36,18 @@ function queryAPI(queryURL) {
 
 function generateGUIforResponse(value) {
   var rating = value.rating;
-  // still_url image starts with a number and needs to use [] type assignment
-  // var url_still = value.images["480w_still"].url;
-  // var url_moving = value.images.downsized.url;
-  
   var url_still = value.images.fixed_width_still.url;
   var url_moving = value.images.fixed_width.url;
 
-
   var imgpanel = $("<div>");
   imgpanel.addClass('imgPanel');
-  // imgpanel.attr('style',  'width:220px');
-  // imgpanel.attr('style',  'background-color:gray');
-    //imgpanel.append('<img src="'+imgpanel.attr("url_still")+'"  style="height=350px; width=350px;"/>');
-
+  
   imgpanel.attr("rating", rating);
   imgpanel.attr("url_moving", url_moving);
   imgpanel.attr("url_still", url_still);
-  // imgpanel.attr("animated", 0);
   show_url(imgpanel, true);
   $("#images").append(imgpanel);
 }
-
 
 function show_url(imgpanel, animated) {
   imgpanel.empty();
@@ -69,7 +59,6 @@ function show_url(imgpanel, animated) {
   }
 }
 
-
 function show_url_still(imgpanel) {
   imgpanel.attr("animated", 0);
   imgpanel.append('<img src="'+imgpanel.attr("url_still")+'">');
@@ -80,6 +69,7 @@ function show_url_moving(imgpanel) {
   imgpanel.append('<img src="'+imgpanel.attr("url_moving")+'">');
 }
 
+// on click of the gif
 $(document).on("click", ".imgPanel", doMovie);
 function doMovie()  {
   var isAnimated = $(this).attr("animated");
@@ -103,6 +93,7 @@ $("#add-item").on("click", function(event) {
   }
 });
 
+// whipes out the buttons and creates them using an array
 function renderButtons(newTopic) {
   $("#buttons").empty();
   // Looping through the array of topics
@@ -118,10 +109,11 @@ function renderButtons(newTopic) {
   }
 }
 
+// 
 function showOhWell() {
-  setTimeout(showOwell, 4500);
+  setTimeout(showit, 4500);
 
-  function showOwell() {
+  function showit() {
       $("#ohWell").fadeIn(500);
   }
 }  

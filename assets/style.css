@@ -2,8 +2,6 @@ body {
     background-color: hsla(230, 73%, 10%, 0.959);
     color: lightskyblue;
     margin: 20px;
-    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-    overflow: hidden;
 }
 
 #buttons {
@@ -14,6 +12,10 @@ body {
     margin: 10px;
     margin-top: 50px;
     min-width: 240px;
+}
+
+.row{
+    min-height: 120px;
 }
 
 #images {
